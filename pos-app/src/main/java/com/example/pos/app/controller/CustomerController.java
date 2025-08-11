@@ -34,7 +34,8 @@ public class CustomerController {
 //       return response;
 
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(201,"Sucess",message),HttpStatus.CREATED
+                new StandardResponse(201,"Sucess",message),
+                HttpStatus.CREATED
         );
     }
 
@@ -52,10 +53,19 @@ public class CustomerController {
 
     }
 
+//    @GetMapping(path = "/get-all-customers")
+//    public List<CustomerDTO> getAllCustomers() {
+//        List<CustomerDTO> allCustomers=customerService.getAllCustomers();
+//        return allCustomers;
+//    }
+
     @GetMapping(path = "/get-all-customers")
-    public List<CustomerDTO> getAllCustomers() {
-        List<CustomerDTO> allCustomers=customerService.getAllCustomers();
-        return allCustomers;
+    public ResponseEntity<StandardResponse> getAllCustomers() {
+        List<CustomerDTO> customerDTOList=customerService.getAllCustomers();
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200,"Sucess",customerDTOList),
+                HttpStatus.OK
+        );
     }
 
 
