@@ -27,11 +27,15 @@ public class CustomerController {
     @PostMapping(path = "/save")
     public ResponseEntity<StandardResponse> saveCustomer(@RequestBody CustomerDTO customerDTO) {
        String message= customerService.saveCustomer(customerDTO);
-       ResponseEntity<StandardResponse> response=new ResponseEntity<StandardResponse>(
-               new StandardResponse(201,"Sucess",message), HttpStatus.CREATED
+//       ResponseEntity<StandardResponse> response=new ResponseEntity<StandardResponse>(
+//               new StandardResponse(201,"Sucess",message), HttpStatus.CREATED
+//
+//       );
+//       return response;
 
-       );
-       return response;
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(201,"Sucess",message),HttpStatus.CREATED
+        );
     }
 
     @PutMapping(path = "/update")
