@@ -4,7 +4,10 @@ package com.example.pos.app.controller;
 import com.example.pos.app.dto.CustomerDTO;
 import com.example.pos.app.dto.request.CustomerUpdateDTO;
 import com.example.pos.app.service.CustomerService;
+import com.example.pos.app.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,10 +18,20 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
+//    @PostMapping(path = "/save")
+//    public String saveCustomer(@RequestBody CustomerDTO customerDTO) {
+//        customerService.saveCustomer(customerDTO);
+//        return "saved";
+//    }
+
     @PostMapping(path = "/save")
-    public String saveCustomer(@RequestBody CustomerDTO customerDTO) {
-        customerService.saveCustomer(customerDTO);
-        return "saved";
+    public ResponseEntity<StandardResponse> saveCustomer(@RequestBody CustomerDTO customerDTO) {
+       String message= customerService.saveCustomer(customerDTO);
+       ResponseEntity<StandardResponse> response=new ResponseEntity<StandardResponse>(
+               new StandardResponse(201,"Sucess",message), HttpStatus.CREATED
+
+       );
+       return response;
     }
 
     @PutMapping(path = "/update")
